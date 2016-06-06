@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AngularJS</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <!--引入ionic-->
+  <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.min.css">
+  <script src="bower_components/ionic/release/js/ionic.bundle.min.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <ion-side-menus ng-controller="myApp.necis.ProjectsCtrl">
+      <!--中心内容-->
+      <ion-side-menu-content>
+          <ion-header-bar class="bar-dark">
+              <button class="button button-icon" ng-click="toggleProjects()">
+                  <i class="icon ion-navicon"></i>
+              </button>
+              <h1 class="title">{{activeProject.title}}</h1>
+              <button class="button button-icon" ng-click="newTask()">
+                  <i class="icon ion-compose"></i>
+              </button>
+          </ion-header-bar>
+          <ion-content scroll="false">
+              <!--列表-->
+              <ion-list>
+                  <ion-item ng-repeat="task in activeProject.tasks">
+                      {{task.title}}
+                  </ion-item>
+              </ion-list>
+          </ion-content>
+      </ion-side-menu-content>
+      <!--左侧菜单-->
+      <ion-side-menu side="left">
+          <ion-header-bar class="bar-dark">
+              <h1 class="title">Projects</h1>
+              <button class="button button-icon ion-plus" ng-click="newProject()"></button>
+          </ion-header-bar>
+          <ion-content scroll="false">
+              <ion-list>
+                  <ion-item ng-repeat="project in projects" ng-click="selectProject(project, $index)" ng-class="{active: activeProject == project}">
+                      {{ project.title }}
+                  </ion-item>
+              </ion-list>
+          </ion-content>
+      </ion-side-menu>
+  </ion-side-menus>
+
+  <script id="new-task.html" type="text/ng-template">
+    <div class="modal">
+        <!--Modal header bar-->
+        <ion-header-bar>
+            <h1 class="title"> New Task</h1>
+            <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
+        </ion-header-bar>
+        <!--Modal content area-->
+        <ion-content>
+            <form ng-submit="createTask(task)">
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+                    </label>
+                </div>
+                <div class="padding">
+                    <button type="submit" class="button button-block button-positive">Create Task</button>
+                </div>
+            </form>
+        </ion-content>
+    </div>
+  </script>
+
+  <div ng-view>
+
+  </div>
+
+  <div>Angular seed app: v<span app-version></span></div>
+
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="view1/view1.js"></script>
+  <script src="view2/view2.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+  <script src="components/necis/necis.js"></script>
+  <!--<script src="components/necis/necis-controller.js"></script>-->
+  <script src="components/necis/necis-project-controller.js"></script>
+</body>
+</html>
